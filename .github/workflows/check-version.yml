@@ -1,0 +1,56 @@
+name: Check Claude Code version
+
+on:
+  schedule:
+    - cron: "0 13 * * 1" # every Monday, 13:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get published version
+        id: version
+        run: |
+          VERSION=$(npm view @anthropic-ai/claude-code version)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Read last known version
+        id: last
+        run: |
+          if [ -f .github/last-known-version.txt ]; then
+            echo "version=$(cat .github/last-known-version.txt)" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=none" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open issue if version changed
+        if: steps.version.outputs.version != steps.last.outputs.version
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Claude Code published version changed: ${{ steps.last.outputs.version }} -> ${{ steps.version.outputs.version }}`,
+              body: [
+                `The published npm version of \`@anthropic-ai/claude-code\` changed.`,
+                ``,
+                `- Previous known version: \`${{ steps.last.outputs.version }}\``,
+                `- Current published version: \`${{ steps.version.outputs.version }}\``,
+                ``,
+                `Review the actual release notes and update \`src/lib/changelog.ts\` if there's a real, citable update to add.`,
+              ].join("\n"),
+            });
+
+      - name: Record current version
+        run: echo "${{ steps.version.outputs.version }}" > .github/last-known-version.txt
+
+      - name: Commit updated version file
+        if: steps.version.outputs.version != steps.last.outputs.version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .github/last-known-version.txt
+          git commit -m "chore: record Claude Code version ${{ steps.version.outputs.version }}"
+          git push
