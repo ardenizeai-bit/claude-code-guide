@@ -63,6 +63,18 @@ function LoginForm() {
             {submitting ? "Checking…" : "Enter"}
           </button>
         </form>
+
+        <p className="text-[11px] leading-snug text-text-muted">
+          An AI PM Portfolio piece —{" "}
+          <a
+            href="https://jjandy.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-text-secondary"
+          >
+            JJAndy.com
+          </a>
+        </p>
       </div>
     </div>
   );
