@@ -123,6 +123,12 @@ export default async function CustomizePage({
           大多数独立开发者从未走到第 2 步之后——一份优秀的 CLAUDE.md 加上一个 MCP 服务器，
           就能覆盖日常工作中的大部分摩擦。除非有明确的理由，否则不必急着用 Hooks 或 Plugins。
         </TipCallout>
+
+        <SeeAlso
+          slug="open-source-repos"
+          locale={locale}
+          note="想要更详细的参考手册——含表格、图示和一个完整的实例演练——参见开源仓库页面的 Agent 架构参考部分。"
+        />
       </ContentPage>
     );
   }
@@ -237,6 +243,11 @@ export default async function CustomizePage({
         covers the majority of day-to-day friction. Don&apos;t reach for Hooks or Plugins until
         you have a concrete reason.
       </TipCallout>
+
+      <SeeAlso
+        slug="open-source-repos"
+        note="For a deeper reference — tables, diagrams, and a full worked example — see the Agent Architecture Reference section on the Open-Source Repos page."
+      />
     </ContentPage>
   );
 }
