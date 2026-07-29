@@ -132,9 +132,9 @@ export default async function CustomizePage({
 
         <h2>延伸阅读</h2>
         <p>
-          这个页面讲的是 Claude Code 自身的几种扩展方式。以下是几篇外部、非官方的延伸读物，
-          覆盖更宏观的企业级 agentic AI 架构话题——RAG、编排、多租户、网关——
-          都是 Claude Code 本身没有涉及的部分。
+          这个页面讲的是 Claude Code 自身的几种扩展方式。如果你想了解更宏观的企业级
+          agentic AI 架构话题，比如 RAG、编排、多租户、网关，下面这几篇外部、非官方的
+          延伸读物涉及的内容更广，超出了 Claude Code 本身覆盖的范围。
         </p>
         <ul>
           <li>
@@ -307,9 +307,9 @@ export default async function CustomizePage({
 
       <h2>Further reading</h2>
       <p>
-        This page covers Claude Code&apos;s own extension layers. These are external, unofficial
-        reads for the broader enterprise agentic-AI architecture picture — RAG, orchestration,
-        multi-tenancy, gateways — beyond what Claude Code itself provides.
+        This page covers Claude Code&apos;s own extension layers. If you want the broader
+        enterprise agentic-AI architecture picture (RAG, orchestration, multi-tenancy, gateways),
+        these external, unofficial reads go beyond what Claude Code itself provides.
       </p>
       <ul>
         <li>
