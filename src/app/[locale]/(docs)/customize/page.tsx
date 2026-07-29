@@ -129,6 +129,62 @@ export default async function CustomizePage({
           locale={locale}
           note="想要更详细的参考手册——含表格、图示和一个完整的实例演练——参见开源仓库页面的 Agent 架构参考部分。"
         />
+
+        <h2>延伸阅读</h2>
+        <p>
+          这个页面讲的是 Claude Code 自身的几种扩展方式。以下是几篇外部、非官方的延伸读物，
+          覆盖更宏观的企业级 agentic AI 架构话题——RAG、编排、多租户、网关——
+          都是 Claude Code 本身没有涉及的部分。
+        </p>
+        <ul>
+          <li>
+            <a
+              href="https://www.architectureandgovernance.com/applications-technology/enterprise-agentic-ai-architecture-design-guidance-part-1/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-accent"
+            >
+              《Enterprise Agentic AI Architecture Design Guidance（Part 1）》
+            </a>
+            ——一份参考架构，涵盖 agent skills、RAG／记忆、编排模式和模型网关。
+          </li>
+          <li>
+            <a
+              href="https://fast.io/resources/ai-agent-multi-tenant-architecture/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-accent"
+            >
+              AI Agent Multi-Tenant Architecture
+            </a>
+            ——隔离模式（独立部署 vs. 共享 vs. 命名空间隔离），用于在文件、向量数据库和
+            agent 记忆中保持租户数据分离。
+          </li>
+          <li>
+            <a
+              href="https://www.kellton.com/kellton-tech-blog/enterprise-agentic-ai-architecture"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-accent"
+            >
+              Enterprise Agentic AI Architecture
+            </a>
+            ——一套成熟度框架（受限自主性、上下文感知、编排、治理），用于把 agent 从试点
+            推向生产环境。
+          </li>
+          <li>
+            <a
+              href="https://www.truefoundry.com/blog/a-definitive-guide-to-ai-gateways-in-2026-competitive-landscape-comparison"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-accent"
+            >
+              A Definitive Guide to AI Gateways in 2026
+            </a>
+            ——对比多个 AI 网关方案（Kong AI、Portkey、LiteLLM、Bedrock、SageMaker、
+            Databricks）在成本、治理和大规模路由方面的表现。
+          </li>
+        </ul>
       </ContentPage>
     );
   }
@@ -248,6 +304,63 @@ export default async function CustomizePage({
         slug="open-source-repos"
         note="For a deeper reference — tables, diagrams, and a full worked example — see the Agent Architecture Reference section on the Open-Source Repos page."
       />
+
+      <h2>Further reading</h2>
+      <p>
+        This page covers Claude Code&apos;s own extension layers. These are external, unofficial
+        reads for the broader enterprise agentic-AI architecture picture — RAG, orchestration,
+        multi-tenancy, gateways — beyond what Claude Code itself provides.
+      </p>
+      <ul>
+        <li>
+          <a
+            href="https://www.architectureandgovernance.com/applications-technology/enterprise-agentic-ai-architecture-design-guidance-part-1/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-accent"
+          >
+            Enterprise Agentic AI Architecture Design Guidance (Part 1)
+          </a>{" "}
+          — a reference architecture covering agent skills, RAG/memory, orchestration patterns,
+          and model gateways.
+        </li>
+        <li>
+          <a
+            href="https://fast.io/resources/ai-agent-multi-tenant-architecture/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-accent"
+          >
+            AI Agent Multi-Tenant Architecture
+          </a>{" "}
+          — isolation patterns (siloed vs. shared vs. namespace) for keeping tenant data separate
+          across files, vector databases, and agent memory.
+        </li>
+        <li>
+          <a
+            href="https://www.kellton.com/kellton-tech-blog/enterprise-agentic-ai-architecture"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-accent"
+          >
+            Enterprise Agentic AI Architecture
+          </a>{" "}
+          — a maturity framework (bounded autonomy, contextual awareness, orchestration,
+          governance) for moving agents from pilot to production.
+        </li>
+        <li>
+          <a
+            href="https://www.truefoundry.com/blog/a-definitive-guide-to-ai-gateways-in-2026-competitive-landscape-comparison"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-accent"
+          >
+            A Definitive Guide to AI Gateways in 2026
+          </a>{" "}
+          — a comparison of AI gateway options (Kong AI, Portkey, LiteLLM, Bedrock, SageMaker,
+          Databricks) for cost, governance, and routing at scale.
+        </li>
+      </ul>
     </ContentPage>
   );
 }
