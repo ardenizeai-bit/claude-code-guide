@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Menu, Search, X } from "lucide-react";
 import { SECTIONS, getPagesBySection, localizeSection, localizeTitle, type Locale } from "@/lib/pages";
 import { NavItem } from "@/components/NavItem";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -17,6 +17,16 @@ const ATTRIBUTION_PREFIX: Record<Locale, string> = {
   zh: "An AI PM Portfolio piece — ",
 };
 
+const SEARCH_PLACEHOLDER: Record<Locale, string> = {
+  en: "Search pages…",
+  zh: "搜索页面…",
+};
+
+const NO_RESULTS: Record<Locale, string> = {
+  en: "No pages match your search.",
+  zh: "没有匹配的页面。",
+};
+
 function SidebarBody({
   currentSlug,
   locale,
@@ -28,12 +38,28 @@ function SidebarBody({
 }) {
   const navRef = useRef<HTMLElement>(null);
   const activeRef = useRef<HTMLAnchorElement>(null);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
+    if (query) return;
     activeRef.current?.scrollIntoView({ block: "nearest" });
     // Only re-run when the active page changes, not on every render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSlug]);
+
+  const normalizedQuery = query.trim().toLowerCase();
+
+  const sectionsWithMatches = useMemo(() => {
+    if (!normalizedQuery) {
+      return SECTIONS.map((section) => ({ section, pages: getPagesBySection(section) }));
+    }
+    return SECTIONS.map((section) => ({
+      section,
+      pages: getPagesBySection(section).filter((page) =>
+        localizeTitle(page, locale).toLowerCase().includes(normalizedQuery)
+      ),
+    })).filter(({ pages }) => pages.length > 0);
+  }, [normalizedQuery, locale]);
 
   return (
     <>
@@ -49,14 +75,34 @@ function SidebarBody({
         </div>
       </div>
 
+      <div className="border-b border-border px-3 py-3">
+        <div className="relative">
+          <Search
+            size={14}
+            className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-text-muted"
+          />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={SEARCH_PLACEHOLDER[locale]}
+            aria-label={SEARCH_PLACEHOLDER[locale]}
+            className="w-full rounded-md border border-border bg-bg py-1.5 pl-8 pr-3 text-sm text-text-primary outline-none placeholder:text-text-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          />
+        </div>
+      </div>
+
       <nav ref={navRef} className="flex-1 overflow-y-auto px-3 py-4">
-        {SECTIONS.map((section) => (
+        {sectionsWithMatches.length === 0 && (
+          <p className="px-3 text-sm text-text-muted">{NO_RESULTS[locale]}</p>
+        )}
+        {sectionsWithMatches.map(({ section, pages }) => (
           <div key={section} className="mb-5">
             <div className="mb-1.5 px-3 font-mono text-[11px] font-medium uppercase tracking-wider text-text-muted">
               {localizeSection(section, locale)}
             </div>
             <div className="flex flex-col gap-0.5">
-              {getPagesBySection(section).map((page) => {
+              {pages.map((page) => {
                 const isActive = page.slug === currentSlug;
                 return (
                   <NavItem
