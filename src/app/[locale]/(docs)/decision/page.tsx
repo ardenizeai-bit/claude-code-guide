@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContentPage } from "@/components/ContentPage";
 import { DecisionTree } from "@/components/diagrams/DecisionTree";
+import { AiArchitectureTree } from "@/components/diagrams/AiArchitectureTree";
 import type { Locale } from "@/lib/pages";
 
 export const metadata: Metadata = { title: "Decision Guide" };
@@ -31,6 +32,8 @@ export default async function DecisionPage({
           只有当动态任务分解和专家协同能实质性提升结果时，自主性才值得投入——而不是因为
           更新的模式听起来更强大。
         </p>
+
+        <AiArchitectureTree locale={locale} />
 
         <h3>如何顺着这条决策路径走</h3>
         <ol>
@@ -265,6 +268,8 @@ export default async function DecisionPage({
         only when dynamic decomposition and specialist coordination materially improve the
         outcome — not because the newer pattern feels more capable.
       </p>
+
+      <AiArchitectureTree />
 
       <h3>Walking the decision path</h3>
       <ol>
